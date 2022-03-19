@@ -33,7 +33,6 @@ public class AppTest {
 
     private Service service;
 
-    @Before
     public void init()
     {
         this.studentRepository = new StudentXMLRepository(this.studentValidator, "studenti_test.xml");
@@ -43,7 +42,6 @@ public class AppTest {
         this.service = new Service(this.studentRepository, this.assignmentRepository, this.gradeRepository);
     }
 
-    @After
     public void clearFiles()
     {
         for(Student s : this.service.findAllStudents())
@@ -55,11 +53,13 @@ public class AppTest {
     @Test
     public void testAddStudent_tc1()
     {
+        init();
         String id = "13";
         String name = "s1";
         int group = 123;
 
         int result = this.service.saveStudent(id, name, group);
         Assert.assertEquals(result, 1);
+        clearFiles();
     }
 }
