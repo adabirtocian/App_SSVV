@@ -1,7 +1,3 @@
-package org.example;
-
-
-
 import console.*;
 import domain.*;
 import repository.*;
