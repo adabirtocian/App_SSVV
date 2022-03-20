@@ -103,7 +103,7 @@ public class AppTest {
         int expected = 0;
 
         int result = this.service.saveStudent(id, name, group);
-        Assert.assertEquals(expected, result);
+        Assert.assertEquals(expected, result); // student not added bc of empty name
         clearFiles();
     }
 
@@ -118,7 +118,7 @@ public class AppTest {
         int expected = 0;
 
         int result = this.service.saveStudent(id, name, group);
-        Assert.assertEquals(expected, result);
+        Assert.assertEquals(expected, result); // student not added bc of null name
         clearFiles();
     }
 
@@ -133,7 +133,7 @@ public class AppTest {
         int expected = 0;
 
         int result = this.service.saveStudent(id, name, group);
-        Assert.assertEquals(expected, result);
+        Assert.assertEquals(expected, result); // student not added bc of gr number <110
         clearFiles();
     }
 
@@ -148,7 +148,7 @@ public class AppTest {
         int expected = 0;
 
         int result = this.service.saveStudent(id, name, group);
-        Assert.assertEquals(expected, result);
+        Assert.assertEquals(expected, result);// student not added bc of gr number >=938
         clearFiles();
     }
 
@@ -162,7 +162,7 @@ public class AppTest {
 
         int expected = 0;
         int result1 = this.service.saveStudent(id, name1, group1);
-        Assert.assertEquals(expected, result1);
+        Assert.assertEquals(expected, result1);// student not added bc of gr number <=110
         clearFiles();
     }
 
@@ -177,7 +177,7 @@ public class AppTest {
         int expected = 1;
 
         int result = this.service.saveStudent(id, name, group);
-        Assert.assertEquals(expected, result);
+        Assert.assertEquals(expected, result);// student added bc of gr number >110
         clearFiles();
     }
 
@@ -187,17 +187,16 @@ public class AppTest {
         init();
         String id = "100";
         String name1 = "student1";
-        int group1 = 110;
+        int group1 = 111;
         String name2 = "student2";
         int group2 = 933;
 
         int result1 = this.service.saveStudent(id, name1, group1);
         int result2 = this.service.saveStudent(id, name2, group2);
-        //Should check this out, not sure what boundaries are here for groups,
-        // it should add the first one but the second one no, but like this it
-        // doesn't add either of them
-        Assert.assertEquals(0, result1);
-        Assert.assertEquals(1, result2);
+        // First student added because of valid properties
+        Assert.assertEquals(1, result1);
+        // Second student not added because of already existent id(but ok other properties)
+        Assert.assertEquals(0, result2);
         clearFiles();
     }
 }
