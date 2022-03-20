@@ -62,4 +62,129 @@ public class AppTest {
         Assert.assertEquals(result, 1);
         clearFiles();
     }
+
+    @Test
+    public void testAddStudent_tc2()
+    {
+        init();
+        String id = "";
+        String name = "student1";
+        int group = 123;
+
+        int expected = 1;
+
+        int result = this.service.saveStudent(id, name, group);
+        Assert.assertEquals(expected, result);
+        clearFiles();
+    }
+
+    @Test
+    public void testAddStudent_tc3()
+    {
+        init();
+        String id = null;
+        String name = "student1";
+        int group = 123;
+
+        int expected = 1;
+
+        int result = this.service.saveStudent(id, name, group);
+        Assert.assertEquals(expected, result);
+        clearFiles();
+    }
+
+    @Test
+    public void testAddStudent_tc4()
+    {
+        init();
+        String id = "1";
+        String name = "";
+        int group = 123;
+
+        int expected = 1;
+
+        int result = this.service.saveStudent(id, name, group);
+        Assert.assertEquals(expected, result);
+        clearFiles();
+    }
+
+    @Test
+    public void testAddStudent_tc5()
+    {
+        init();
+        String id = "1";
+        String name = null;
+        int group = 123;
+
+        int expected = 1;
+
+        int result = this.service.saveStudent(id, name, group);
+        Assert.assertEquals(expected, result);
+        clearFiles();
+    }
+
+    @Test
+    public void testAddStudent_tc6()
+    {
+        init();
+        String id = "1";
+        String name = "student1";
+        int group = 109;
+
+        int expected = 1;
+
+        int result = this.service.saveStudent(id, name, group);
+        Assert.assertEquals(expected, result);
+        clearFiles();
+    }
+
+    @Test
+    public void testAddStudent_tc7()
+    {
+        init();
+        String id = "1";
+        String name = "student1";
+        int group = 939;
+
+        int expected = 1;
+
+        int result = this.service.saveStudent(id, name, group);
+        Assert.assertEquals(expected, result);
+        clearFiles();
+    }
+
+    @Test
+    public void testAddStudent_tc8()
+    {
+        init();
+        String id = "100";
+        String name1 = "student1";
+        int group1 = 111;
+        String name2 = "student2";
+        int group2 = 933;
+
+        int result1 = this.service.saveStudent(id, name1, group1);
+        int result2 = this.service.saveStudent(id, name2, group2);
+        //Should check this out, not sure what boundaries are here for groups,
+        // it should add the first one but the second one no, but like this it
+        // doesn't add either of them
+        Assert.assertEquals(0, result1);
+        Assert.assertEquals(0, result2);
+        clearFiles();
+    }
+
+    @Test
+    public void testAddStudent_tc9()
+    {
+        init();
+        String id = "1";
+        String name = "student1";
+        int group = 111;
+
+        int expected = 0;
+
+        int result = this.service.saveStudent(id, name, group);
+        Assert.assertEquals(expected, result);
+        clearFiles();
+    }
 }
