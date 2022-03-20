@@ -199,4 +199,60 @@ public class AppTest {
         Assert.assertEquals(0, result2);
         clearFiles();
     }
+
+    @Test
+    public void testAddStudent_tc11()
+    {
+        init();
+        int count = 0;
+        int expected_size = 0;
+        for(Student s: this.service.findAllStudents())
+        {
+            count+=1;
+        }
+        Assert.assertEquals(expected_size, count);
+
+        String id = "100";
+        String name = "student";
+        int group = 931;
+        int expected = 1;
+        int result = this.service.saveStudent(id, name, group);
+        Assert.assertEquals(expected, result); // student added
+        count = 0;
+        expected_size = 1;
+        for(Student s: this.service.findAllStudents())
+        {
+            count+=1;
+        }
+        Assert.assertEquals(expected_size, count);
+        clearFiles();
+    }
+
+    @Test
+    public void testAddStudent_tc12()
+    {
+        init();
+        int count = 0;
+        int expected_size = 0;
+        for(Student s: this.service.findAllStudents())
+        {
+            count+=1;
+        }
+        Assert.assertEquals(expected_size, count);
+
+        String id = "";
+        String name = "student";
+        int group = 931;
+        int expected = 0;
+        int result = this.service.saveStudent(id, name, group);
+        Assert.assertEquals(expected, result); // student not added
+
+        count = 0;
+        for(Student s: this.service.findAllStudents())
+        {
+            count+=1;
+        }
+        Assert.assertEquals(expected_size, count);
+        clearFiles();
+    }
 }
