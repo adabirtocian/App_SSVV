@@ -36,16 +36,31 @@ public class AppTest {
         this.service = new Service(this.studentRepository, this.assignmentRepository, this.gradeRepository);
     }
 
-    public void clearFiles()
+    public void clearStudentFiles()
     {
-        ArrayList<String> ids = new ArrayList<>();
+        ArrayList<String> ids_students = new ArrayList<>();
+
         for(Student s : this.service.findAllStudents())
         {
-            ids.add(s.getID());
+            ids_students.add(s.getID());
         }
-        for(String id: ids)
+        for(String id: ids_students)
         {
             this.studentRepository.delete(id);
+        }
+    }
+
+    public void clearAssignmentFiles()
+    {
+        ArrayList<String> ids_assignments = new ArrayList<>();
+
+        for(Tema a : this.service.findAllTeme())
+        {
+            ids_assignments.add(a.getID());
+        }
+        for(String id: ids_assignments)
+        {
+            this.assignmentRepository.delete(id);
         }
     }
 
@@ -59,7 +74,7 @@ public class AppTest {
         int expected = 1;
         int result = this.service.saveStudent(id, name, group);
         Assert.assertEquals(expected, result); // student was added
-        clearFiles();
+        clearStudentFiles();
     }
 
     @Test
@@ -74,7 +89,7 @@ public class AppTest {
 
         int result = this.service.saveStudent(id, name, group);
         Assert.assertEquals(expected, result); // student not added because of empty id
-        clearFiles();
+        clearStudentFiles();
     }
 
     @Test
@@ -89,7 +104,7 @@ public class AppTest {
 
         int result = this.service.saveStudent(id, name, group);
         Assert.assertEquals(expected, result); // student not added because of null id
-        clearFiles();
+        clearStudentFiles();
     }
 
     @Test
@@ -104,7 +119,7 @@ public class AppTest {
 
         int result = this.service.saveStudent(id, name, group);
         Assert.assertEquals(expected, result); // student not added bc of empty name
-        clearFiles();
+        clearStudentFiles();
     }
 
     @Test
@@ -119,7 +134,7 @@ public class AppTest {
 
         int result = this.service.saveStudent(id, name, group);
         Assert.assertEquals(expected, result); // student not added bc of null name
-        clearFiles();
+        clearStudentFiles();
     }
 
     @Test
@@ -134,7 +149,7 @@ public class AppTest {
 
         int result = this.service.saveStudent(id, name, group);
         Assert.assertEquals(expected, result); // student not added bc of gr number <110
-        clearFiles();
+        clearStudentFiles();
     }
 
     @Test
@@ -149,7 +164,7 @@ public class AppTest {
 
         int result = this.service.saveStudent(id, name, group);
         Assert.assertEquals(expected, result);// student not added bc of gr number >=938
-        clearFiles();
+        clearStudentFiles();
     }
 
     @Test
@@ -163,7 +178,7 @@ public class AppTest {
         int expected = 0;
         int result1 = this.service.saveStudent(id, name1, group1);
         Assert.assertEquals(expected, result1);// student not added bc of gr number <=110
-        clearFiles();
+        clearStudentFiles();
     }
 
     @Test
@@ -178,7 +193,7 @@ public class AppTest {
 
         int result = this.service.saveStudent(id, name, group);
         Assert.assertEquals(expected, result);// student added bc of gr number >110
-        clearFiles();
+        clearStudentFiles();
     }
 
     @Test
@@ -197,7 +212,7 @@ public class AppTest {
         Assert.assertEquals(1, result1);
         // Second student not added because of already existent id(but ok other properties)
         Assert.assertEquals(0, result2);
-        clearFiles();
+        clearStudentFiles();
     }
 
     @Test
@@ -225,7 +240,7 @@ public class AppTest {
             count+=1;
         }
         Assert.assertEquals(expected_size, count);
-        clearFiles();
+        clearStudentFiles();
     }
 
     @Test
@@ -253,7 +268,7 @@ public class AppTest {
             count+=1;
         }
         Assert.assertEquals(expected_size, count);
-        clearFiles();
+        clearStudentFiles();
     }
 
     @Test
@@ -269,6 +284,22 @@ public class AppTest {
 
         int result = this.service.saveTema(id, description, deadline, startline);
         Assert.assertEquals(expected, result); // assignment was added
-        clearFiles();
+        clearAssignmentFiles();
+    }
+
+    @Test
+    public void testAddAssignment_tc2()
+    {
+        init();
+        String id = "1";
+        String description = "d1";
+
+        int deadline = 20;
+        int startline = 2;
+        int expected = 0;
+
+        int result = this.service.saveTema(id, description, deadline, startline);
+        Assert.assertEquals(expected, result); // assignment not added because of deadline
+        clearAssignmentFiles();
     }
 }
