@@ -255,4 +255,20 @@ public class AppTest {
         Assert.assertEquals(expected_size, count);
         clearFiles();
     }
+
+    @Test
+    public void testAddAssignment_tc1()
+    {
+        init();
+        String id = "1";
+        String description = "d1";
+        int deadline = 3;
+        int startline = 2;
+
+        int expected = 1;
+
+        int result = this.service.saveTema(id, description, deadline, startline);
+        Assert.assertEquals(expected, result); // assignment was added
+        clearFiles();
+    }
 }
