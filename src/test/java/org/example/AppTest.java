@@ -311,10 +311,13 @@ public class AppTest {
         String description = "d1";
         int deadline = 3;
         int startline = 2;
+        int expected = 1;
 
         Tema assignment = new Tema(id, description, deadline, startline);
         this.assignmentValidator.validate(assignment);
-        assert(true);
+
+        int result = this.service.saveTema(id, description, deadline, startline);
+        Assert.assertEquals(expected, result); // assignment added
         clearAssignmentFiles();
     }
 
@@ -326,9 +329,13 @@ public class AppTest {
         String description = "d1";
         int deadline = 20;
         int startline = 2;
+        int expected = 0;
 
         Tema assignment = new Tema(id, description, deadline, startline);
         Assertions.assertThrows(ValidationException.class, () -> { this.assignmentValidator.validate(assignment);});
+
+        int result = this.service.saveTema(id, description, deadline, startline);
+        Assert.assertEquals(expected, result); // assignment not added because of deadline
         clearAssignmentFiles();
     }
 
@@ -340,9 +347,13 @@ public class AppTest {
         String description = "d1";
         int deadline = 3;
         int startline = 20;
+        int expected = 0;
 
         Tema assignment = new Tema(id, description, deadline, startline);
         Assertions.assertThrows(ValidationException.class, () -> { this.assignmentValidator.validate(assignment);});
+
+        int result = this.service.saveTema(id, description, deadline, startline);
+        Assert.assertEquals(expected, result); // assignment not added because of startline
         clearAssignmentFiles();
     }
 
@@ -354,9 +365,13 @@ public class AppTest {
         String description = null;
         int deadline = 3;
         int startline = 2;
+        int expected = 0;
 
         Tema assignment = new Tema(id, description, deadline, startline);
         Assertions.assertThrows(ValidationException.class, () -> { this.assignmentValidator.validate(assignment);});
+
+        int result = this.service.saveTema(id, description, deadline, startline);
+        Assert.assertEquals(expected, result); // assignment not added because of description
         clearAssignmentFiles();
     }
 }
