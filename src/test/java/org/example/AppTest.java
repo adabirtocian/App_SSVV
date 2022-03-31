@@ -7,7 +7,7 @@ import repository.*;
 import service.Service;
 import validation.*;
 import validation.Validator;
-
+import org.junit.jupiter.api.Assertions;
 import java.util.ArrayList;
 
 /**
@@ -300,6 +300,63 @@ public class AppTest {
 
         int result = this.service.saveTema(id, description, deadline, startline);
         Assert.assertEquals(expected, result); // assignment not added because of deadline
+        clearAssignmentFiles();
+    }
+
+    @Test
+    public void testValidateAssignment_tc1()
+    {
+        init();
+        String id = "1";
+        String description = "d1";
+        int deadline = 3;
+        int startline = 2;
+
+        Tema assignment = new Tema(id, description, deadline, startline);
+        this.assignmentValidator.validate(assignment);
+        assert(true);
+        clearAssignmentFiles();
+    }
+
+    @Test
+    public void testValidateAssignment_tc2()
+    {
+        init();
+        String id = "1";
+        String description = "d1";
+        int deadline = 20;
+        int startline = 2;
+
+        Tema assignment = new Tema(id, description, deadline, startline);
+        Assertions.assertThrows(ValidationException.class, () -> { this.assignmentValidator.validate(assignment);});
+        clearAssignmentFiles();
+    }
+
+    @Test
+    public void testValidateAssignment_tc3()
+    {
+        init();
+        String id = "1";
+        String description = "d1";
+        int deadline = 3;
+        int startline = 20;
+
+        Tema assignment = new Tema(id, description, deadline, startline);
+        Assertions.assertThrows(ValidationException.class, () -> { this.assignmentValidator.validate(assignment);});
+        clearAssignmentFiles();
+    }
+
+    @Test
+    public void testValidateAssignment_tc4()
+    {
+        init();
+        String id = "1";
+        String description = null;
+        int deadline = 3;
+        int startline = 2;
+
+        Tema assignment = new Tema(id, description, deadline, startline);
+        Assertions.assertThrows(ValidationException.class, () -> { this.assignmentValidator.validate(assignment);});
         clearAssignmentFiles();
     }
 }
