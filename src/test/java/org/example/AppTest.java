@@ -374,4 +374,94 @@ public class AppTest {
         Assert.assertEquals(expected, result); // assignment not added because of description
         clearAssignmentFiles();
     }
+
+    @Test
+    public void testValidateAssignment_tc5()
+    {
+        init();
+        String id = null;
+        String description = "d1";
+        int deadline = 3;
+        int startline = 2;
+        int expected = 0;
+
+        Tema assignment = new Tema(id, description, deadline, startline);
+        Assertions.assertThrows(ValidationException.class, () -> { this.assignmentValidator.validate(assignment);});
+
+        int result = this.service.saveTema(id, description, deadline, startline);
+        Assert.assertEquals(expected, result); // assignment not added because of id
+        clearAssignmentFiles();
+    }
+
+    @Test
+    public void testValidateAssignment_tc6()
+    {
+        init();
+        String id = "";
+        String description = "d1";
+        int deadline = 3;
+        int startline = 2;
+        int expected = 0;
+
+        Tema assignment = new Tema(id, description, deadline, startline);
+        Assertions.assertThrows(ValidationException.class, () -> { this.assignmentValidator.validate(assignment);});
+
+        int result = this.service.saveTema(id, description, deadline, startline);
+        Assert.assertEquals(expected, result); // assignment not added because of id
+        clearAssignmentFiles();
+    }
+
+    @Test
+    public void testValidateAssignment_tc7()
+    {
+        init();
+        String id = "1";
+        String description = "";
+        int deadline = 3;
+        int startline = 2;
+        int expected = 0;
+
+        Tema assignment = new Tema(id, description, deadline, startline);
+        Assertions.assertThrows(ValidationException.class, () -> { this.assignmentValidator.validate(assignment);});
+
+        int result = this.service.saveTema(id, description, deadline, startline);
+        Assert.assertEquals(expected, result); // assignment not added because of description
+        clearAssignmentFiles();
+    }
+
+    @Test
+    public void testValidateAssignment_tc8()
+    {
+        init();
+        String id = "1";
+        String description = "d1";
+        int deadline = 6;
+        int startline = 2;
+        int expected = 1;
+
+        Tema assignment = new Tema(id, description, deadline, startline);
+        this.assignmentValidator.validate(assignment);
+
+        int result = this.service.saveTema(id, description, deadline, startline);
+        Assert.assertEquals(expected, result); // assignment added
+        clearAssignmentFiles();
+    }
+
+    @Test
+    public void testValidateAssignment_tc9()
+    {
+        init();
+        String id = "1";
+        String description = "d1";
+        int deadline = 3;
+        int startline = 6;
+        int expected = 0;
+
+        Tema assignment = new Tema(id, description, deadline, startline);
+        Assertions.assertThrows(ValidationException.class, () -> { this.assignmentValidator.validate(assignment);});
+
+        int result = this.service.saveTema(id, description, deadline, startline);
+        Assert.assertEquals(expected, result); // assignment not added because of startline
+        clearAssignmentFiles();
+    }
 }
