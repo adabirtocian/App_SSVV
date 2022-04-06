@@ -7,7 +7,6 @@ import repository.*;
 import service.Service;
 import validation.*;
 import validation.Validator;
-import org.junit.jupiter.api.Assertions;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -129,9 +128,28 @@ public class IntegrationTest {
     @Test
     public void test_integration()
     {
-        this.test_addStudent();
-        this.test_addAssignment();
-        this.test_addGrade();
+        init();
+        String id_assignment = "id1";
+        String description = "d1";
+        int deadline = 3;
+        int startline = 2;
+
+        int result = this.service.saveTema(id_assignment, description, deadline, startline);
+        Assert.assertEquals(1, result); // assignment was added
+
+        String id = "id1";
+        String name = "s1";
+        int group = 123;
+
+        result = this.service.saveStudent(id, name, group);
+        Assert.assertEquals(1, result); // student was added
+
+        result = this.service.saveNota("id1", "id1", 7, 9, "ok");
+        Assert.assertEquals(1, result);
+
+        clearAssignmentFiles();
+        clearStudentFiles();
+        clearGradeFiles();
     }
 
 
