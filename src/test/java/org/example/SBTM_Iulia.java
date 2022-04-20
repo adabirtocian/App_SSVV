@@ -82,20 +82,20 @@ public class SBTM_Iulia {
     public void test_addGrade_AllValid()
     {
         init();
-        String id_assignment = "id1";
-        String description = "d1";
+        String id_assignment = "1";
+        String description = "description";
         int deadline = 3;
         int startline = 2;
         int result = this.service.saveTema(id_assignment, description, deadline, startline);
         Assert.assertEquals(1, result); // assignment was added
 
-        String id_student = "id1";
-        String name = "s1";
+        String id_student = "1";
+        String name = "name";
         int group = 123;
         result = this.service.saveStudent(id_student, name, group);
         Assert.assertEquals(1, result); // student was added
 
-        result = this.service.saveNota("id1", "id1", 9, 3, "good");
+        result = this.service.saveNota("1", "1", 9, 3, "good");
         Assert.assertEquals(1, result);
 
         Nota grade = this.gradeRepository.findOne(new Pair<String, String>(id_student, id_assignment));
@@ -110,21 +110,21 @@ public class SBTM_Iulia {
     public void test_addGrade_tooBigGrade()
     {
         init();
-        String id_assignment = "id1";
-        String description = "d1";
+        String id_assignment = "1";
+        String description = "description";
         int deadline = 3;
         int startline = 2;
         int result = this.service.saveTema(id_assignment, description, deadline, startline);
         Assert.assertEquals(1, result); // assignment was added
 
-        String id_student = "id1";
-        String name = "s1";
+        String id_student = "1";
+        String name = "name";
         int group = 123;
         result = this.service.saveStudent(id_student, name, group);
         Assert.assertEquals(1, result); // student was added
 
-        result = this.service.saveNota("id1", "id1", 2, 4, "bad");
-        Assert.assertEquals(0, result); // grade greater than 0
+        result = this.service.saveNota("1", "1", 2, 4, "bad");
+        Assert.assertEquals(0, result); // grade greater than 10
 
         Nota grade = new Nota(new Pair(id_student, id_assignment), 10.5, 4, "bad");
         Assertions.assertThrows(ValidationException.class, () -> { this.gradeValidator.validate(grade);});
@@ -138,20 +138,20 @@ public class SBTM_Iulia {
     public void test_addGrade_LateTurnIn()
     {
         init();
-        String id_assignment = "id1";
-        String description = "d1";
+        String id_assignment = "1";
+        String description = "description";
         int deadline = 3;
         int startline = 2;
         int result = this.service.saveTema(id_assignment, description, deadline, startline);
         Assert.assertEquals(1, result); // assignment was added
 
-        String id_student = "id1";
-        String name = "s1";
+        String id_student = "1";
+        String name = "name";
         int group = 123;
         result = this.service.saveStudent(id_student, name, group);
         Assert.assertEquals(1, result); // student was added
 
-        result = this.service.saveNota("id1", "id1", 7, 6, "ok");
+        result = this.service.saveNota("1", "1", 7, 6, "ok");
         Assert.assertEquals(1, result);
 
         Nota grade = this.gradeRepository.findOne(new Pair<String, String>(id_student, id_assignment));
@@ -166,20 +166,20 @@ public class SBTM_Iulia {
     public void test_addGrade_Grade10()
     {
         init();
-        String id_assignment = "id1";
-        String description = "d1";
+        String id_assignment = "1";
+        String description = "description";
         int deadline = 3;
         int startline = 2;
         int result = this.service.saveTema(id_assignment, description, deadline, startline);
         Assert.assertEquals(1, result); // assignment was added
 
-        String id_student = "id1";
-        String name = "s1";
+        String id_student = "1";
+        String name = "name";
         int group = 123;
         result = this.service.saveStudent(id_student, name, group);
         Assert.assertEquals(1, result); // student was added
 
-        result = this.service.saveNota("id1", "id1", 10, 3, "good");
+        result = this.service.saveNota("1", "1", 10, 3, "good");
         Assert.assertEquals(1, result);
 
         Nota grade = this.gradeRepository.findOne(new Pair<String, String>(id_student, id_assignment));
@@ -194,20 +194,20 @@ public class SBTM_Iulia {
     public void test_addGrade_Grade11()
     {
         init();
-        String id_assignment = "id1";
-        String description = "d1";
+        String id_assignment = "1";
+        String description = "description";
         int deadline = 3;
         int startline = 2;
         int result = this.service.saveTema(id_assignment, description, deadline, startline);
         Assert.assertEquals(1, result); // assignment was added
 
-        String id_student = "id1";
-        String name = "s1";
+        String id_student = "1";
+        String name = "name";
         int group = 123;
         result = this.service.saveStudent(id_student, name, group);
         Assert.assertEquals(1, result); // student was added
 
-        result = this.service.saveNota("id1", "id1", 11, 3, "good");
+        result = this.service.saveNota("1", "1", 11, 3, "good");
         Assert.assertEquals(0, result);
 
         clearAssignmentFiles();
@@ -219,20 +219,20 @@ public class SBTM_Iulia {
     public void test_addGrade_turnedInNegativeWeek()
     {
         init();
-        String id_assignment = "id1";
-        String description = "d1";
+        String id_assignment = "1";
+        String description = "description";
         int deadline = 3;
         int startline = 2;
         int result = this.service.saveTema(id_assignment, description, deadline, startline);
         Assert.assertEquals(1, result); // assignment was added
 
-        String id_student = "id1";
-        String name = "s1";
+        String id_student = "1";
+        String name = "name";
         int group = 123;
         result = this.service.saveStudent(id_student, name, group);
         Assert.assertEquals(1, result); // student was added
 
-        result = this.service.saveNota("id1", "id1", 11, -1, "good");
+        result = this.service.saveNota("1", "1", 11, -1, "good");
         Assert.assertEquals(0, result);
 
 
