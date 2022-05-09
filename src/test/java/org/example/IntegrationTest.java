@@ -162,7 +162,6 @@ public class IntegrationTest {
         int group = 123;
         int expected_student = 1;
         int result_student = this.service.saveStudent(id, name, group);
-
         id = "1";
         String description = "d1";
         int deadline = 3;
@@ -197,7 +196,6 @@ public class IntegrationTest {
         Assert.assertEquals(1, result);
         Assert.assertEquals(expected_student, result_student); // student was added
         Assert.assertEquals(expected_assignment, result_assignment); // assignment was added
-
         clearAssignmentFiles();
         clearStudentFiles();
         clearGradeFiles();
