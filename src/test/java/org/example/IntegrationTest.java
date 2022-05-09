@@ -153,5 +153,54 @@ public class IntegrationTest {
         clearGradeFiles();
     }
 
+    @Test
+    public void test_addStudent_addAssignment()
+    {
+        init();
+        String id = "13";
+        String name = "s1";
+        int group = 123;
+        int expected_student = 1;
+        int result_student = this.service.saveStudent(id, name, group);
+
+        id = "1";
+        String description = "d1";
+        int deadline = 3;
+        int startline = 2;
+        int expected_assignment = 1;
+        int result_assignment = this.service.saveTema(id, description, deadline, startline);
+
+        Assert.assertEquals(expected_student, result_student); // student was added
+        Assert.assertEquals(expected_assignment, result_assignment); // assignment was added
+        clearAssignmentFiles();
+        clearStudentFiles();
+    }
+
+    @Test
+    public void test_addStudent_addAssignment_addGrade()
+    {
+        init();
+        String id_student = "13";
+        String name = "s1";
+        int group = 123;
+        int expected_student = 1;
+        int result_student = this.service.saveStudent(id_student, name, group);
+
+        String id_assignment = "1";
+        String description = "d1";
+        int deadline = 3;
+        int startline = 2;
+        int expected_assignment = 1;
+        int result_assignment = this.service.saveTema(id_assignment, description, deadline, startline);
+
+        int result = this.service.saveNota(id_student, id_assignment, 7, 9, "ok");
+        Assert.assertEquals(1, result);
+        Assert.assertEquals(expected_student, result_student); // student was added
+        Assert.assertEquals(expected_assignment, result_assignment); // assignment was added
+
+        clearAssignmentFiles();
+        clearStudentFiles();
+        clearGradeFiles();
+    }
 
 }
